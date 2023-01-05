@@ -397,7 +397,7 @@ write_io()
       if((port < 0) || (port > maxfiles))
       {
          strcpy(xstring, "Invalid File Number:\n");
-         a_bort(ab_code, x0;
+         a_bort(ab_code, x);
       }
       else if((chmode != 'O') && (chmode != 'A'))
       {
@@ -490,11 +490,39 @@ write_fvalue(wflag, port, *name)
 
    strcpy (varname, name);
    pi = e_pos;
-   type = get_Nvtype(pi);
+   type = get_vtype(pi);
 
+   ndx = get_intndx(varname);
+   ivalue = iv_stack[ndx];
+   sprintf(temp, "%d", ivalue);
 
-
-
+   len = strlen(temp);
+   idx = len - 1;
+   ch = temp[idx];
+   if((type == 4) || (type == 3))
+   {
+      if(ch == '0')
+      {
+         while(ch == '0')
+         {
+            temp[idx] = '\0';
+            idx--;
+            ch = temp[idx];
+            if(ch == '.')
+            {
+               temp[idx] = '\0';
+            }
+          }
+       }
+     }
+     f_hdl = fp[port].fptr;
+     if(wflag > 0)
+     {
+        fprintf(f_hdl, "%c", comma);
+     }
+     fprintf(f_hdl, "%s", temp);
+     wflag++;
+     return wflag;
 }
 
 
