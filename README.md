@@ -1,6 +1,6 @@
 
 utsbasic is a port of bxbasic(2003) era.  It is a beta release more
-for testing and bug finding.  A log number of test programs are included.
+for testing and bug finding.  A large number of test programs are included.
 
 utsbasic runs under UTS under VM370.
 
