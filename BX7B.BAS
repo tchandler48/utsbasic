@@ -1,0 +1,7 @@
+USERID UTS
+   REM
+   PRINT "BX7B.BAS IF"
+   FOR x = 1 TO 5
+     PRINT x
+   NEXT x
+   END
