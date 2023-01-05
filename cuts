@@ -1,0 +1,2 @@
+USERID UTS
+cc utsbasic.c utsberr.c -O -lm -o utsbasic
