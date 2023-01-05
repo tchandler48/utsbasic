@@ -1,7 +1,7 @@
 USERID UTS
 
 /* utsbasic : utsbfile.c                       */
-/* Copyright:(c) sarbayo, 2001-2011            */
+/* Copyright:(c) sarbayo, 2001-2011            */ 
 /* Modified T. Chandler utsbasic utsbfile.c    */
 
 
@@ -481,6 +481,17 @@ write_fvalue(wflag, port, *name)
    int port;
    char *name;
 {
+   char ch, comma=',', varname[VAR_NAME], temp[BUFSIZE];
+   int pi, type, ndx = 0, indx = 0, len, idx;
+   int ivalue;
+   int lvalue;
+   int fvalue;
+   int dvalue;
+
+   strcpy (varname, name);
+   pi = e_pos;
+   type = get_Nvtype(pi);
+
 
 
 
