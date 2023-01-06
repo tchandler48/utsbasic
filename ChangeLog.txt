@@ -1,0 +1,5 @@
+
+
+01/06/2023	Added WRITE#x, inp$,value,nxt$
+		(x = file number ie: 1,2,3,....)
+
