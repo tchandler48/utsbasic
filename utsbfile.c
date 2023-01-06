@@ -50,8 +50,8 @@ get_iomode(len)
    pi = e_pos;
    ch = p_string[pi];
 
-  io_mode = ch; 
-
+   io_mode = ch; 
+ 
    pi = get_digit(pi, len);
 
    if(pi == len)
@@ -382,6 +382,7 @@ write_io()
    len = strlen(p_string);
    pi = e_pos;
    pi = get_digit(pi, len);
+
    if(pi == len)
    {
       strcpy(xstring, "Invallid Write Format:\n");

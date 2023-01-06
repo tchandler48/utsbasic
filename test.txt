@@ -2,8 +2,3 @@ USERID UTS
 "hello world","next string",32000
 "line two","test 2",2134
 "line three","test 3",321
-
-
-
-
-

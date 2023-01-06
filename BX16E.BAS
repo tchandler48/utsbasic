@@ -1,9 +1,9 @@
 USERID UTS
-'  test16e.bas
+'  test16D.bas
    CLS
-   PRINT "Opening Test File bx16e.bas"
+   PRINT "Opening Test File bx16d.bas"
    OPEN "I", #1, "test.txt"
-   OPEN "O", #2, “test2.txt”
+   OPEN "O", #2, "test2.txt"
 Start:
    IF EOF(1) THEN
       GOTO Finish
@@ -15,9 +15,10 @@ Start:
    PRINT inp$
    PRINT nxt$
    PRINT valuea
-   WRITE#2, inp$,nxt$,valuea
+   WRITE#2, valuea,nxt$,inp$
    GOTO Start
 Finish:
    CLOSE 1, 2
 TheEnd:
    END
+
