@@ -65,13 +65,7 @@ get_strvar()
    int stlen, si=0;
 
    stlen = strlen(p_string);
- /*  pi = e_pos; */
-/* retrieve variable name from statement */
-
- /*  pi = get_alpha(pi, stlen); */
-
    ch = p_string[pi];
-
 
    while((isalnum(ch) != 0))
    {

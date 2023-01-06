@@ -277,6 +277,7 @@ get_byte(ii)
    else if(strcmp(keyword, "ELSE") == 0)   byte = 15;
    else if(strcmp(keyword, "ENDIF") == 0)  byte = 16;
    else if(strcmp(keyword, "INPUT") == 0)  byte = 17;
+   else if(strcmp(keyword, "LINE") == 0)   byte = 18;
    else if(strcmp(keyword, "OPEN") == 0)   byte = 19;
    else if(strcmp(keyword, "CLOSE") == 0)  byte = 20;
    else if(strcmp(keyword, "WRITE") == 0)  byte = 21;

@@ -1,8 +1,45 @@
 USERID UTS
 
-/* utsbasic : utsbginpc.c                      */
+/* utsbasic : utsbginp.c                       */
 /* Copyright:(c) sarbayo, 2001-2011            */
 /* Modified T. Chandler utsbasic utsbginp.c    */
+
+
+get_lninput()
+{
+    char ch, varname[VAR_NAME];
+    int pi, loc=0;
+
+    pi = e_pos;
+    ch = p_string[pi];
+    if(ch == '#')
+    {
+printf("get_lninput Startin\n");
+        p_string[pi] = '@';
+        input_io();
+        return;
+    }
+    else if(ch == ';')		/* do not echo newline */
+    {   loc = 1;
+        pi++;
+        pi = iswhite(pi);
+        ch = p_string[pi];
+        e_pos = pi;
+    }
+    if(ch == '\"')          	/* Prompt: "enter string"; */
+    {   get_prnstring();
+        pi = e_pos;
+        pi++;
+        pi = iswhite(pi);
+        ch = p_string[pi];
+        e_pos = pi;
+    }
+/* --- input string --- */
+    get_vnam();
+    strcpy(varname, vnam);
+    input_str(varname,loc);
+}
+
 
 
 get_input()

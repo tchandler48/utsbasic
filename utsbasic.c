@@ -193,7 +193,11 @@ parser()
        get_input();
        break;
 
-     case 19:		/* OPEN */
+     case 18:		/* LINE INPUT */
+       get_lninput();
+       break;
+
+    case 19:		/* OPEN */
        parse_open();
        break;
 

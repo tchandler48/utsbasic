@@ -23,6 +23,8 @@ parse_open()
    int pi, len, ab_code = 20, x = line_ndx;
    char ch;
 
+printf("parse_open Start\n");
+
    len = strlen(p_string);
    pi = e_pos;
    pi = get_upper(pi, len);
@@ -218,11 +220,13 @@ do_fclose()
 
 input_io()
 {
+   char ch;
    int pi, port = 0, len, maxfiles=IOARRAY, x = line_ndx, ab_code = 21;
    int fnum = 0;
 
    len = strlen(p_string);
    pi = e_pos;
+   ch = p_string[pi];
    pi = get_digit(pi, len);
 
    if(pi == len)
@@ -248,7 +252,7 @@ input_io()
       }
       else
       {
-         get_finput(port, len);
+         get_finput(port, len, ch);
       }
    }
 
@@ -256,15 +260,18 @@ input_io()
 
 
 
-get_finput(port,len)
+get_finput(port,len, chx)
    int port;
    int len;
+   char chx;
 {
    char ch, varname[VAR_NAME];
    int pi, type;
 
    pi = e_pos;
    ch = p_string[pi];
+
+printf("get_finput Starting\n");
 
    while((pi < len) && (ch != '\n'))
    {
@@ -281,7 +288,15 @@ get_finput(port,len)
          e_pos = pi;
          get_vnam();
          strcpy(varname, vnam);
-         if(type == 3)
+printf("get_finput chx = %c\n",chx);
+printf("get_finput varname = %s\n",varname);
+printf("get_finput type = %d\n",type);
+         if(chx == '@')
+         {
+            read_fline(port, varname);
+            break;
+         }
+         else if(type == 3)
          {
             read_fstring(port, varname);
          }
@@ -525,6 +540,35 @@ write_fvalue(wflag, port, *name)
      wflag++;
      return wflag;
 }
+
+
+read_fline(port,*name)
+   int port;
+   char *name;
+{
+   char varname[VAR_NAME], temp[BUFSIZE];
+   int ndx = 0, xsize, ii;
+
+   strcpy(varname, name);
+   ndx = get_varndx(varname);
+   temp[0] = '\0';
+   f_hdl = fp[port].fptr;
+   if(!feof(f_hdl))
+   {
+      fgets(temp, BUFSIZE, f_hdl);
+   }
+   xsize = strlen(temp);
+   xsize++;
+   if(xsize > 2)
+   {
+      temp[(xsize-2)] = '\0';
+   }
+   sv_stack[ndx] = realloc(sv_stack[ndx], xsize * sizeof(char));
+   strcpy(sv_stack[ndx], temp);
+}
+
+
+
 
 
 

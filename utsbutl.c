@@ -1,6 +1,9 @@
 USERID UTS
 
-/*  utsbasic.c : utsutl.c */
+/* utsbasic : utsbutl.c                        */
+/* Copyright:(c) sarbayo, 2001-2011            */
+/* Modified T. Chandler utsbasic utsbutl.c     */
+
 
 get_alpha(pi, stlen)
   int pi;
