@@ -11,6 +11,7 @@ USERID UTS
 #include <math.h>
 #include <time.h>
 #include <sys/types.h>
+#include <qsdefs.h>
 
 #define BUFSIZE             78
 #define LINE_NUM            6
@@ -52,6 +53,11 @@ USERID UTS
         char **in_stack;
          int imax_vars = 0;
 
+        char var_type;
+      double *dv_stack;
+        char **dn_stack;
+         int dmax_vars = 0;
+
          int *gosub_stack;
          int gs_ptr = -1;
 
@@ -83,6 +89,9 @@ main(argc, argv)
   
   int ab_code = 1;
   int x = 0;
+printf("main argc = %d\n",argc);
+
+/*  qsopen(); */
 
   printf("UTSBasic Intepreter\n");
   if(argc != 2)
@@ -93,6 +102,8 @@ main(argc, argv)
   line_cnt(argv);
   clr_iohandles();
   pgm_par();
+
+/*  qsclose(); */
   exit(1);
 }
 
@@ -133,6 +144,7 @@ parser()
        break;
 
      case 2:		/* CLEAR */
+       clr_vars();
        break;
 
      case 3:		/* LOCATE */
@@ -150,6 +162,7 @@ parser()
        break;
 
      case 7:		/* CLS */
+ /*      qsat(0101); */
        break;
 
      case 8:		/* END */
