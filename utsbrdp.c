@@ -5,7 +5,7 @@ USERID UTS
 
 rdp_main()
 {
-   int value;
+   double value;
    value = Expression();
    return value;
 }
@@ -14,7 +14,8 @@ rdp_main()
 Expression()
 {
    char ch;
-   int pi, Value;
+   int pi;
+   double Value;
 
    pi = e_pos;
    ch = p_string[pi];
@@ -55,7 +56,8 @@ Expression()
 Term()
 {
   char ch;
-   int pi, Value;
+   int pi;
+  double Value;
 
   Value = Factor();
   pi = e_pos;
@@ -98,7 +100,8 @@ Term()
 Factor()
 {
   char ch;
-  int pi, value;
+  int pi;
+  double value;
 
   pi = e_pos;
   ch = p_string[pi];
@@ -159,6 +162,7 @@ _GetChar()
    e_pos++;
 }
 
+
 Is_White(ch)
   char ch;
 {
@@ -217,7 +221,8 @@ IsMultop(ch)
 GetNum()
 {
   char ch;
-  int pi, Value=0, ab_code=12, ln=line_ndx;
+  int pi, ab_code=12, ln=line_ndx;
+  double value = 0;
 
   pi = e_pos;
   ch = p_string[pi];
@@ -228,13 +233,13 @@ GetNum()
   }
   while(isdigit(ch))
   {
-    Value = 10 * Value + ch - '0';
+    value = 10 * value + ch - '0';
     _GetChar();
     pi = e_pos;
     ch = p_string[pi];
   }
   SkipWhite();
-  return Value;
+  return value;
 }
 
 
