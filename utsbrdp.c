@@ -82,10 +82,12 @@ Term()
           Value = pow(Value, Factor());
           break;
 
+/*
        case '%':
           Match('%');
           Value = Value % Factor();
           break;
+*/
    
        default:
           break;
