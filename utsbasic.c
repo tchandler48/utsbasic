@@ -20,7 +20,7 @@ USERID UTS
 #define LLEN                33
 #define IOARRAY             25
 #define PATH                80
- 
+    
 
 	FILE *pgm, *f_out,*f_in;
         FILE *f_src;

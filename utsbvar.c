@@ -30,6 +30,15 @@ parse_let()
     e_pos = pi;
     parse_str(varname);
   }
+  else if(ch == '#')
+  {
+    ndx = get_dblndx(varname);
+    pi++;
+    pi = iswhite(pi);
+    e_pos = pi;
+    Match('=');
+    dv_stack[ndx] = rdp_main();
+  }
   else
   {
     ndx = get_intndx(varname);
@@ -121,12 +130,54 @@ get_intndx(name)
 }
 
 
+get_dblndx(name)
+   char *name;
+{
+   char varname[VAR_NAME];
+   int ndx = 0, vflag = 0, vi_pos = 0;
+
+   strcpy(varname, name);
+
+   while((ndx < dmax_vars) && (strcmp(dn_stack[ndx], varname) != 0))
+   {
+     if(vflag == 0)
+     {
+       if(dn_stack[ndx][0] == '\0')
+       {
+         vi_pos = ndx;
+         vflag = 1;
+       }
+     }
+     ndx++;
+   }
+
+   if(ndx == dmax_vars)
+   {
+     ndx = vi_pos;
+     if(vflag == 0)
+     {
+       init_dbl();
+       ndx = dmax_vars;
+       ndx--;
+       strcpy(dn_stack[ndx], varname);
+     }
+     else
+     {
+       strcpy(dn_stack[ndx], varname);
+     }
+   }
+   return ndx;
+}
+
+
+
 
 get_varvalue()
 {
    char ch, varname[VAR_NAME];
-    int pi, si=0, ndx=0, ivalue;
+    int pi, si=0, ndx=0;
     int ab_code=13, x=line_ndx;
+    double value;
 
    e_pos = 0;   /* add tec */
    pi = e_pos;
@@ -139,18 +190,35 @@ get_varvalue()
       ch = p_string[pi];
    }
    varname[si] = '\0';
+   var_type = ch;
 
-   while((ndx < imax_vars) && (strcmp(in_stack[ndx], varname) != 0))
+   if(ch == '#')
    {
-     ndx++;
+      while((ndx < dmax_vars) && (strcmp(dn_stack[ndx], varname) != 0))
+      {
+         ndx++;
+      }
+      if(ndx == dmax_vars)
+      {
+         a_bort(ab_code, x);
+      }
+      value = dv_stack[ndx];
+      _GetChar();
    }
-   if(ndx == imax_vars)
+   else
    {
-     a_bort(ab_code, x);
+      while((ndx < imax_vars) && (strcmp(in_stack[ndx], varname) != 0))
+      {
+         ndx++;
+      }
+      if(ndx == imax_vars)
+      {
+         a_bort(ab_code, x);
+      }
+      value = (double) iv_stack[ndx];
    }
-   ivalue = iv_stack[ndx];
    e_pos = pi;
-   return ivalue;
+   return value;
 }
 
 
@@ -212,6 +280,35 @@ init_str()
 }
 
 
+init_dbl()
+{
+   int ndx;
+   unsigned size;
+
+   if(dmax_vars == 0)
+   {
+     ndx = dmax_vars;
+     dmax_vars++;
+     size = dmax_vars;
+     dv_stack = malloc(size * sizeof(double));
+     dn_stack = malloc(size * sizeof(char *));
+     size = VAR_NAME;
+     dn_stack[ndx] = malloc(size * sizeof(char));
+   }
+   else
+   {
+     ndx = dmax_vars;
+     dmax_vars++;
+     size = dmax_vars;
+     dv_stack = realloc(iv_stack, size * sizeof(double));
+     dn_stack = realloc(in_stack, size * sizeof(char *));
+     size = VAR_NAME;
+     dn_stack[ndx] = malloc(size * sizeof(char));
+   }
+}
+
+
+
 /*
 clr_str()
 {
@@ -253,3 +350,28 @@ get_vnam()
 }
 
  
+clr_vars()
+{
+   clr_int();
+   clr_dbl();
+}
+
+
+clr_dbl()
+{
+   int ndx;
+
+   if(dmax_vars > 0)
+   {
+      free(dv_stack);
+      for(ndx = 0; ndx < dmax_vars;  ndx++)
+      {
+         free(dn_stack[ndx]);
+      }
+      free(dn_stack);
+      dmax_vars = 0;
+   }
+}
+
+
+
