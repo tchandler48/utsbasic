@@ -5,6 +5,39 @@ USERID UTS
 /* Modified T. Chandler utsbasic utsbutl.c     */
 
 
+
+get_alnum(pi, len)
+   int pi;
+   int len;
+{
+   char ch;
+
+   ch = p_string[pi];
+   while((isalnum(ch) == 0) && (pi < len))
+   {
+      pi++;
+      ch = p_string[pi];
+   }
+   return pi;
+}
+
+
+while_isalnum(pi)
+   int pi;
+{
+   char ch;
+ 
+   ch = p_string[pi];
+   while(isalnum(ch))
+   {
+      pi++;
+      ch = p_string[pi];
+   }
+   return pi;
+}
+
+
+
 get_alpha(pi, stlen)
   int pi;
   int stlen;

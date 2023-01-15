@@ -5,19 +5,6 @@ USERID UTS
 /* Modified T. Chandler utsbasic utsbfile.c    */
 
 
-clr_iohandles()
-{
-   int ii;
-
-   for(ii = 0; ii < IOARRAY; ii++)
-   {
-      fp[ii].path[0] = '\0';
-      fp[ii].mode = '\0';
-      fp[ii].fptr = '\0';
-   }
-}
-
-
 parse_open()
 {
    int pi, len, ab_code = 20, x = line_ndx;
@@ -173,11 +160,7 @@ do_fclose()
       {
          if(fp[ii].path[0] != '\0')
          {
-            f_hdl = fp[ii].fptr;
-            fclose(f_hdl);
-            fp[ii].path[0] = '\0';
-            fp[ii].mode = '\0';
-            fp[ii].fptr = '\0';
+            reset_handle(ii);
          }
       }
    }
@@ -203,12 +186,7 @@ do_fclose()
             }
             else if(fp[ndx].path[0] != '\0')
             {
-            /*   f_hdl = fp[ndx].fptr; */
-
-               fclose(f_hdl);
-               fp[ndx].path[0] = '\0';
-               fp[ndx].mode = '\0';
-               fp[ndx].fptr = '\0';
+               reset_handle(ndx);
             }
             pi = e_pos;
             ch = p_string[pi];
@@ -569,6 +547,33 @@ read_fline(port,*name)
 
 
 
+reset_handle(ndx)
+   int ndx;
+{
+   f_hdl = fp[ndx].fptr;
+   fclose(f_hdl);
+   zero_handle(ndx);
+}
+
+
+zero_handle(ndx)
+   int ndx;
+{
+   fp[ndx].path[0] = '\0';
+   fp[ndx].mode = '\0';
+   fp[ndx].fptr = '\0';
+}
+
+
+clr_iohandles()
+{
+   int ii;
+
+   for(ii = 0; ii < IOARRAY;  ii++)
+   {
+      zero_handle(ii);
+   }
+}
 
 
 
