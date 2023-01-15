@@ -224,6 +224,11 @@ tmp_byte(ii)
          get_MOD(pi);
          pi = si;
        }
+       else if(ch == '#')
+       {
+         byte = 1;
+         pi = si;
+       }
        else if(ch == '%')
        {
          byte = 1;
@@ -295,6 +300,11 @@ get_byte(ii)
      {
        byte = 1;
        get_MOD(pi);
+       pi = e_pos;
+     }
+     else if(ch == '#')
+     {
+       byte = 1;
        pi = e_pos;
      }
      else if(ch == '%')
