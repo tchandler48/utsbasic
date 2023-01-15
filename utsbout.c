@@ -99,27 +99,46 @@ get_strvar()
 get_prnvar()
 {
    char ch;
-   int pi, ivalue;
+   int pi;
+   double value;
 
    pi = e_pos;
    pi = iswhite(pi);
    e_pos = pi;
 
-   ivalue = get_varvalue();
+   value = get_varvalue();
    pi = e_pos;
    pi = iswhite(pi);
    ch = p_string[pi];
-   if(ch == ',')
+   if(var_type == '#')
    {
-      printf("%d", ivalue);
-   }
-   else if(ch == ';')
-   {
-      printf("%d", ivalue);
+      if(ch == ',')
+      {
+         printf("%2.f%c", value, '\t');
+      }
+      else if(ch == ';')
+      {
+         printf("%2.f", value);
+      }
+      else
+      {
+         printf("%2.f\n", value);
+      }
    }
    else
-   {
-      printf("%d\n", ivalue);
+   { 
+      if(ch == ',')
+      {
+         printf("%d", (int) value);
+      }
+      else if(ch == ';')
+      {
+         printf("%d", (int) value);
+      }
+      else
+      {
+         printf("%d\n", (int) value);
+      }
    }
 }
 
