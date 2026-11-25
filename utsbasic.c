@@ -99,6 +99,7 @@ printf("main argc = %d\n",argc);
     a_bort(ab_code, x);
   }
   strcpy(t_holder, argv[1]);
+printf("before line_cnt\n");
   line_cnt(argv);
   clr_iohandles();
   pgm_par();

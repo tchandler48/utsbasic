@@ -38,6 +38,7 @@ load_src()
    f_out = fopen(tmp,"w");                      
    while(fgets(p_string, BUFSIZE, f_in) != NULL)
    {
+     printf("load_src p_string = %s\n",p_string);
      pi = 0;
      pi = iswhite(pi);
      len = strlen(p_string);
